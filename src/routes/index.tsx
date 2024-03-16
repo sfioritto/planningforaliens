@@ -1,34 +1,8 @@
 import { component$, Slot } from "@builder.io/qwik";
+import { Date } from "~/components/Date";
+import { Link } from "~/components/Link";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import type { QwikIntrinsicElements } from "@builder.io/qwik";
-
-const Link = component$<QwikIntrinsicElements["a"]>(({ class: className, ...props }) => {
-  return (
-    <a
-      class={[
-        "text-blue-600 hover:underline visited:text-purple-700",
-        className,
-      ]}
-      {...props}
-    >
-      <Slot />
-    </a>
-  );
-});
-
-const Date = component$<QwikIntrinsicElements["span"]>(({ class: className, ...props }) => {
-  return (
-    <span
-      class={[
-        "text-gray-500",
-        className,
-      ]}
-      {...props}
-    >
-      <Slot />
-    </span>
-  );
-});
 
 const ListItem = component$<QwikIntrinsicElements["li"]>(({ class: className, ...props }) => {
   return (
