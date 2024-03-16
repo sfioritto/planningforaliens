@@ -1,0 +1,159 @@
+---
+title: "How does the new Mac Pro site work?"
+blurb: "Apple's Mac Pro page apes the great flash sites of the early aughts, but those smooth animations and transitions are pure HTML5. I poked around the implementation with Chrome's developer tools and reverse engineered the coolest parts.."
+---
+
+The most expensive Kleenex box cover money can buy
+--------------------------------------------------
+
+At first the new Mac Pro reminded me of those colored, plastic sheaths your grandma slides over fugly kleenex boxes so they match the decor in her bathroom. But after staring at it for a while it began to look like the dark, sleek, Jobsian future I've been waiting for. Seriously. It looks like a super evil, aerodynamic trash can.
+
+And I want one soooo bad...
+
+In any case, the product page for the Kleenex box of the century piqued my curiosity. The page behaves like a Flash site from the early 2000's but it's running on pure HTML5 and Javascript.
+
+Chrome's developer tools and Firebug revealed about what I expected and one big surprise.
+
+A quick caveat
+--------------
+
+I don't know exactly how everything works. The Javascript is minimized and really hard to read and they are doing a few things that are new to me. So some of this is just an educated guess. Where I found code I've grabbed screenshots or pulled snippets.
+
+How it works in a nutshell
+--------------------------
+
+There is one main video tag on the page. When you scroll or click on one of the navigation links the video is advanced to the section you are about to view using Javascript. At the same time a big event loop is kicked off in the background that coordinates animating the copy with the video. When the video hits a stopping point it is covered up with an identical image -- presumably it looks better than a still video frame.
+
+Everything is absolutely positioned
+-----------------------------------
+
+The first thing I looked at was the markup. I scrolled down to the first spec page, right-clicked right over the video and went to inspect element.
+
+<figure>
+  <image src="/media/macpro/placeholder.png" alt="placeholder" />
+  <figcaption>Placeholder</figcaption>
+</figure>
+
+I found an empty placeholder. It turns out almost everything on the page is absolutely positioned. This made it a little challenging to figure out the structure of the markup.
+
+There are two video tags. One is for the intro video which you see when the page loads. The other video is used to show the Mac Pro swooping around and dancing in the middle of the page.
+
+<figure>
+  <img src="/media/macpro/markup-chrome.png" alt="Mac Pro Markup in Chrome" />
+  <figcaption>Mac Pro Markup in Chrome</figcaption>
+</figure>
+
+Right below the videos is a div called "stillcontainer" which contains a bunch of images. These images are layered over the final frame of each video section. They are all hidden by default and then absolutely positioned over the video frame once it stops.
+
+<figure>
+  <img src="/media/macpro/stillcontainer.png" alt="Still container image" />
+  <figcaption>Still container in Mac Pro site</figcaption>
+</figure>
+Finally there is the "panelcontainer" which is where they stuffed all of the copy for each section.
+
+<figure>
+  <img src="/media/macpro/panelcontainer.png" alt="Panel container in Mac Pro site" />
+  <figcaption>Panel container in Mac Pro site</figcaption>
+</figure>
+Again, each of these sections is hidden until the user scrolls or clicks to a section. The section is absolutely positioned over the video and then revealed via an animation that is coordinated with the video.
+
+Advancing the video using Javascript
+------------------------------------
+
+<figure>
+  <img src="/media/macpro/videotag.png" alt="Video tag in Mac Pro site" />
+  <figcaption>Video tag in Mac Pro site</figcaption>
+</figure>
+Apple doesn't use flash so it's no surprise to see the [video tag](http://www.html5rocks.com/en/tutorials/video/basics/) here. The video tag let's them easily jump around in the video using Javascript. All you do is set the currentTime property of the video and then say video.play().
+
+If you scroll up the video plays backwards. How? Just set video.playbackRate to something less than 0.
+
+But how do they stop the video at the right point? This is where the educated guesses begin.
+
+requestAnimationFrame
+---------------------
+
+[window.requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window.requestAnimationFrame) is a way to create a loop for animations. Instead of setInterval or setTimeout you call requestAnimationFrame with a callback function. Chris Coyier has a pretty good explanation [here](http://css-tricks.com/using-requestanimationframe/).
+
+I suspect that somewhere in the bowels of the minified Javascript there is a requestAnimationFrame loop that gets kicked off whenever a wheel event is triggered or a section link is clicked. For every iteration of the loop they check the current time of the video and use that to either trigger an animation or stop the video playback.
+
+This is the event loop you were looking for
+-------------------------------------------
+
+There are a few clues that suggest this is true. Check out this snippet:
+
+```javascript
+    r.\_update = function() {
+    this.currentTime < 0 && (this.trigger("start"), this.pause(), this.\_mediaTimer.currentTime = 0), this.trigger("timeupdate"), this.\_mediaTimer.update && this.\_mediaTimer.update(), this.currentTime >= this.\_duration && (this.pause(), this.trigger("ended"), this.currentTime >= this.duration && (this.\_mediaTimer.currentTime = this.\_duration)), this.\_processTransitoryClips(this.\_prevTime, this.currentTime), this.paused || (this.\_animationID = window.requestAnimationFrame(this.\_update)), this.\_prevTime = this.currentTime
+    }
+```
+
+It's a bit dense, and now you can see why I've had to speculate about so much. This is an update method that triggers a couple of events, sets some timing properties, processes "clips" (I'll show you those in a minute), then kicks off the requestAnimationFrame loop to call itself again and again and again...
+
+The clips being processed are chunks of animations defined as Javascript objects. Here is an example:
+
+```javascript
+    ...
+    clips: \[
+    {start: -1.95,
+     end: 0,
+     media: new t("#change .copy",
+                  1.95,
+                  \[{property: "opacity",from: 1,to: 1},
+                   {property: "translate",axis: "y",from: 0,to: 0,units: "px",easing: "linear"}
+                   \])
+    }
+   \],
+   ...
+```
+
+
+There is a start and end time and then another object that defines properties and from and to values. That sure looks like an animation to me.
+
+They probably predefined all of these clips to correspond with frames in the video, (using the start and end properties), and then change the properties on each trip through the requestAnimationFrame loop until the end time or final property value is reached.
+
+So you said there was a surprise
+--------------------------------
+
+Let's look at the markup in Chrome again.
+
+<figure>
+  <img src="/media/macpro/markup-chrome.png" alt="Mac Pro Markup in Chrome" />
+  <figcaption>Mac Pro Markup in Chrome</figcaption>
+</figure>
+Now here is the markup in Firefox.
+
+<figure>
+  <img src="/media/macpro/markup-firefox.png" alt="Mac Pro Markup in Firefox" />
+  <figcaption>Mac Pro Markup in Firefox</figcaption>
+</figure>
+A canvas tag. Intriguing. But wait, there's more.
+
+<figure>
+  <img src="/media/macpro/firefox.png" alt="Firefox view of Mac Pro site" />
+  <figcaption>Firefox view of Mac Pro site</figcaption>
+</figure>
+
+If you look at the network tab hundreds of images are being downloaded. My guess is they are painting these images to the canvas element one frame at a time, (within that same requestAnimationFrame event loop we looked at above), to create a video.
+
+I don't know why they aren't just streaming the video to Firefox. Maybe the video tag support in my version of Firefox isn't good enough for what they want to do?
+
+Update 6-17-2013
+
+> [@sfioritto](https://twitter.com/sfioritto) great article on the Mac Pro site! The canvas is there probably because Apple didn't wanted to use OGG for Firefox &lt;video&gt;
+>
+> — Tiago Pedras (@tiagopedras) [June 15, 2013](https://twitter.com/tiagopedras/statuses/345839567217246208)
+
+It's an interesting technique, but it's a bit heavy handed with the CPU. Loading the site in Firefox brings my puny Macbook Air to its knees.
+
+Coordinating animations with video playback
+-------------------------------------------
+
+My biggest takeaway from this is how easy it is to coordinate animations with video using HTML5 and Javascript. There are so many places where this could be really awesome.
+
+We're very quickly running out of stuff we _can't_ do in the browser.
+
+Did I get something wrong?
+--------------------------
+
+Let me know so I can update this post. I'm [@sfioritto](http://www.twitter.com/sfioritto) on Twitter.
