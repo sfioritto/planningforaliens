@@ -1,0 +1,57 @@
+# Generative UI will come in Phases
+
+1. Productivity Increases
+	[AI will continue to increase developer productivity](/ideas/ai-will-continue-to-increase-developer-productivity) and [AI will continue to increase designer productivity](/ideas/ai-will-continue-to-increase-designer-productivity)
+2. All static pages will be AI generated
+3. AI will generate content pages dynamically
+4. AI generated glue code (Zapier but less fiddly)
+	1. [https://www.bardeen.ai/](https://www.bardeen.ai/)
+5. AI generated CRUD
+
+Designers will build design systems for AI
+
+## Automated Design
+
+## Static sites
+
+Static site generation is low hanging fruit. We've already seen tantalizing demos of LLMs taking whiteboard drawings and turning them into functioning apps.
+
+### How it will play out
+
+At first this will be rough and niche e.g. [https://www.builder.io/m/design-to-code](https://www.builder.io/m/design-to-code) generates code from Figma designs. It's not tied into your design system so it's creating one-off components every time you use it and it likely requires quite a bit of tweaking by a developer.
+
+Gradually this will become more integrated with design systems so branding can remain consistent and will require less input from developers over time.
+
+Even pages that are loaded dynamically can benefit from this approach as giving a developer code that's using components within your existing design system is faster than starting with a Figma file.
+
+We should see progress in this area quickly.
+
+### Business Opportunities
+
+There is perhaps an opportunity for  a business that does fine tuned models that work with your components or an open source design system. But I suspect this business model will have a short shelf-life because the basic idea will be quickly integrated into open source tooling, existing apps and component systems like TailwindUI, Material Design, Storybook and Figma.
+
+Each of these projects has an economic incentive to do this themselves.
+
+## Data layer
+
+For a time developers will still need to take whatever the model outputs and connect it to application data. If you design a page for displaying a product you still need to:
+
+1. Pick the right layout for the product
+2. Conditionally render things e.g. slashing out the original price and displaying the sale price, handle missing images, etc
+3. Handle fetching the data
+4. Connect the data to components which will likely involve massaging props and types, creating contexts etc.
+5. Wiring up side effects like “add to cart”, “Add a comment”, etc.
+
+### How it will play out
+LLMs are not great at this type of work yet. They can augment a developer if the developer knows how to spoon feed them the work piece by piece.
+
+But over time as models get more generally intelligent they'll take over more and more of this work.
+
+For a few years at least there might be a window of opportunity for specialized models that take bridge the gap until LLMs are more capable and cheaper.
+
+## Replacing the developer
+* tooling gets good enough where dev is just reviewing
+* eventually not even reviewing, test coverage good enough and the models so fast at generating code and fixing their own stuff with feedback loops the cost of “bad” code gets lower and lower while machines get better and better at writing the code in the first place
+##Replacing the designer
+* Designers gradually move to design systems, AI's learn to plug and play components and get better and better at design decisions and UX patterns
+* UI is generated on the fly per user. Designers are now relegated to goal setting for the AI because [We will all become CEOs]() and [Generative UI will replace hand-crafted UI]()
