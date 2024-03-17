@@ -14,3 +14,9 @@ export const Link = component$<QwikIntrinsicElements["a"]>(({ class: className, 
     </a>
   );
 });
+
+
+export const HomeLink = component$<QwikIntrinsicElements["a"]>((props) => {
+  return <Link href="/" {...props}>⃪ Home</Link>;
+});
+

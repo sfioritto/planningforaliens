@@ -7,7 +7,7 @@ export default component$(() => {
   const { title, frontmatter } = useDocumentHead();
   return (
     <>
-      <Link href="/">⃪ Back</Link>
+      <Link href="/">⃪ Home</Link>
       <article class="pt-8">
         <h1>{title}</h1>
         {frontmatter.published ? <p class="text-slate-500">Published: <Date>{frontmatter.published}</Date></p> : null}
