@@ -6,7 +6,7 @@ export const Date = component$<QwikIntrinsicElements["span"]>(({ class: classNam
   return (
     <span
       class={[
-        "text-gray-500",
+        "text-gray-500 text-sm",
         className,
       ]}
       {...props}
