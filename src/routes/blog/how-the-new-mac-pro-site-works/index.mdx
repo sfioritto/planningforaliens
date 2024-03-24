@@ -4,6 +4,14 @@ blurb: "Apple's Mac Pro page apes the great flash sites of the early aughts, but
 published: 6/11/2016
 ---
 
+import PlaceholderImg from "./placeholder.png?jsx"
+import MarkupChromeImg from "./markup-chrome.png?jsx"
+import StillcontainerImg from "./stillcontainer.png?jsx"
+import PanelcontainerImg from "./panelcontainer.png?jsx"
+import VideotagImg from "./videotag.png?jsx"
+import MarkupFirefoxImg from "./markup-firefox.png?jsx"
+import FirefoxImg from "./firefox.png?jsx"
+
 The most expensive Kleenex box cover money can buy
 --------------------------------------------------
 
@@ -31,7 +39,7 @@ Everything is absolutely positioned
 The first thing I looked at was the markup. I scrolled down to the first spec page, right-clicked right over the video and went to inspect element.
 
 <figure>
-  <image src="/media/macpro/placeholder.png" alt="placeholder" />
+  <PlaceholderImg alt="placeholder" />
   <figcaption>Placeholder</figcaption>
 </figure>
 
@@ -40,20 +48,20 @@ I found an empty placeholder. It turns out almost everything on the page is abso
 There are two video tags. One is for the intro video which you see when the page loads. The other video is used to show the Mac Pro swooping around and dancing in the middle of the page.
 
 <figure>
-  <img src="/media/macpro/markup-chrome.png" alt="Mac Pro Markup in Chrome" />
+  <MarkupChromeImg alt="Mac Pro Markup in Chrome" />
   <figcaption>Mac Pro Markup in Chrome</figcaption>
 </figure>
 
 Right below the videos is a div called "stillcontainer" which contains a bunch of images. These images are layered over the final frame of each video section. They are all hidden by default and then absolutely positioned over the video frame once it stops.
 
 <figure>
-  <img src="/media/macpro/stillcontainer.png" alt="Still container image" />
+  <StillcontainerImg alt="Still container image" />
   <figcaption>Still container in Mac Pro site</figcaption>
 </figure>
 Finally there is the "panelcontainer" which is where they stuffed all of the copy for each section.
 
 <figure>
-  <img src="/media/macpro/panelcontainer.png" alt="Panel container in Mac Pro site" />
+  <PanelcontainerImg alt="Panel container in Mac Pro site" />
   <figcaption>Panel container in Mac Pro site</figcaption>
 </figure>
 Again, each of these sections is hidden until the user scrolls or clicks to a section. The section is absolutely positioned over the video and then revealed via an animation that is coordinated with the video.
@@ -62,7 +70,7 @@ Advancing the video using Javascript
 ------------------------------------
 
 <figure>
-  <img src="/media/macpro/videotag.png" alt="Video tag in Mac Pro site" />
+  <VideotagImg alt="Video tag in Mac Pro site" />
   <figcaption>Video tag in Mac Pro site</figcaption>
 </figure>
 Apple doesn't use flash so it's no surprise to see the [video tag](http://www.html5rocks.com/en/tutorials/video/basics/) here. The video tag let's them easily jump around in the video using Javascript. All you do is set the currentTime property of the video and then say video.play().
@@ -119,19 +127,19 @@ So you said there was a surprise
 Let's look at the markup in Chrome again.
 
 <figure>
-  <img src="/media/macpro/markup-chrome.png" alt="Mac Pro Markup in Chrome" />
+  <MarkupChromeImg alt="Mac Pro Markup in Chrome" />
   <figcaption>Mac Pro Markup in Chrome</figcaption>
 </figure>
 Now here is the markup in Firefox.
 
 <figure>
-  <img src="/media/macpro/markup-firefox.png" alt="Mac Pro Markup in Firefox" />
+  <MarkupFirefoxImg alt="Mac Pro Markup in Firefox" />
   <figcaption>Mac Pro Markup in Firefox</figcaption>
 </figure>
 A canvas tag. Intriguing. But wait, there's more.
 
 <figure>
-  <img src="/media/macpro/firefox.png" alt="Firefox view of Mac Pro site" />
+  <FirefoxImg alt="Firefox view of Mac Pro site" />
   <figcaption>Firefox view of Mac Pro site</figcaption>
 </figure>
 
