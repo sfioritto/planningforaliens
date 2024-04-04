@@ -12,6 +12,7 @@ export default extendConfig(baseConfig, () => {
     },
     plugins: [cloudflarePagesAdapter({
       ssg: {
+        exclude: ['/strategy'],
         include: ['/*'],
         origin: 'https://www.planningforaliens.com',
       },
