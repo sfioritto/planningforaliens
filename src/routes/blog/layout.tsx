@@ -11,7 +11,10 @@ export default component$(() => {
       {url.pathname === '/blog/' ? <HomeLink /> : <Link href="/blog/">⃪ All Articles</Link>}
       <article class="pt-8">
         <h1>{title}</h1>
-        {frontmatter.published ? <p class="text-slate-500">Published: {frontmatter.published}</p> : null}
+        <p class="text-slate-500">
+          {frontmatter.published ? <span>Published: {frontmatter.published}</span> : null}
+          {frontmatter.updated ? <span class="pl-2">(Updated: {frontmatter.updated})</span> : null}
+        </p>
         <Slot />
       </article>
     </>
