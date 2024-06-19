@@ -1,0 +1,18 @@
+# Positional Encoding for Transformers
+
+In the encoding layer of a transformer, (so when tokens are converted to embeddings that are fed into the transform neural network), the position of the tokens in the sequence is added to the embedding.
+
+## Why does a transformer need positional encoding?
+
+This is done because the transformer doesn't itself track a sequence &mdash; it receieves all of the tokens at once. But there is important information lost if the sequence of the tokens is lost: order matters in language.
+
+## How?
+
+After creating the embedding a positional encoding function is used. Each position in the embedding uses a different function such that it guarantees a unique positional encoding for each position. It is also intended to capture most sequences used in training within one cycle of the sine/cosine wave so it doesn't repeat.
+
+## But why use sine/cosine functions and not just y = x, y = 2x, etc?
+
+- Because sine and cosine functions are periodic this lets the model generalize to longer sequences. (Just repeat the pattern, because the model never learns an "end", it just sees these cycles).
+- They have a bounded range, from -1 to 1 so the positions don't dominate the word embedding as they get larger.
+- They let the model learn a "pattern", so it could figure out that in one pattern the subject is at the beginning, but in another pattern the subject is at the end.
+- Because different wavelengths are used for each scalar in the vector that is the word embedding it allows the model to detect patterns that appear in short distances and patterns that appear in long distances. (Longer and farther meaning words are closer or further apart in a sequence).
