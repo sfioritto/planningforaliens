@@ -1,0 +1,19 @@
+# Simplified Self-Attention Mechanism
+
+This is a high level description of a simplified self-attention implementation of a transformer.
+
+1. Pick the "query"
+
+The query is simply a token in a sequence being evaluated by the transformer.
+
+2. Calculate the similarity of the query token to every other token in the sequence. These values are called the attention scores.
+
+In the simplified version we could simply do a dot product of the query to each other input token. The dot product gives an approximation of similarity, though there are better ways to calculate similarity (like Cosine Similarity or even a Scaled Dot Product).
+
+3. Normalize the attention scores, this result is called the attention weights
+
+Use something like SoftMax to normalize the attention scores so they all add up to 1.
+
+4. Create a context vector
+
+Use the attention weights to calculate the context vector which is the sum of each of the inputs multiplied by the corresponding attention weight.
