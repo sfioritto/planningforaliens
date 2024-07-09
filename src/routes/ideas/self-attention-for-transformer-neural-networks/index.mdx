@@ -14,7 +14,7 @@ Query, Keys and Values are calculated to determine similarity.
 
 Keys are a table of numbers that are calculated during training. There are keys for each word.
 
-## Use the Query values to calculate similarity between two words
+## Use the Query values to calculate the similarity between two words
 
 1. Create Key values for each word
 2. Using the Query values for the word you are calculating similarity for
@@ -42,11 +42,11 @@ Multiply the [position-encoded](/ideas/positional-encoding-for-transformers) val
 
 Use the Key values for each token in the sequence to calculate a similarity score for each token by taking the dot product of the query value and the key and then applying softmax.
 
-3. Use Value table to calculate the final value
+3. Use the Value table to calculate the final value
 
 Use the corresponding numbers in the Value table for each word along with the calculated dot-product/softmax similarity scores to scale the value numbers for each word. Then add all of those together to get the self-attention score for the word that is being looked at in the sentence.
 
-Keys and Values do not need to be recalculated for each word. The weights that are used to calculate query values are the same for every token. The same is true for the weights used to calculating the values using Keys and Value for each token.
+Keys and Values do not need to be recalculated for each word. The weights that are used to calculate query values are the same for every token. The same is true for the weights used to calculate the values using Keys and Values for each token.
 
 ## Concepts and Insights
 
@@ -54,17 +54,17 @@ Why use Query, Key and Value tables?
 
 The idea is that the token being looked at is the "query", it's being compared to "keys" (like in a database) and then those are passed to a function to create Values.
 
-Each layer, query, values and keys, has a matrice that is created when the model is trained.
+Each layer, (queries, values or keys), has a matrix that is created when the model is trained.
 
 The whole point of this is to allow the training process to encode information in the embeddings about which words in the sentence the model should focus on.
 
 "The dog found some pizza next to the baby and ate it"
 
-In this sentence that the word "pizza" is much more important to the word "it" so that the neural network will know that it is pizza and not baby. It tends to be true that it will refer to the nearest preceding noun.
+In this sentence, the word "pizza" is much more important than the word "it" so that the neural network will know that it is pizza and not baby. It tends to be true that it will refer to the nearest preceding noun.
 
-So by the time the transformer reaches this step it has encoded position into the vector it's working with. Now it needs to figure out what it should focus on.
+So by the time the transformer reaches this step, it has encoded position into the vector it's working with. Now it needs to figure out what it should focus on.
 
-Initially the model has no idea what word is more important to a given word so it starts with some random weights to figure out a starting point, and they called that the Query. Then the starting point has to be compared to something so there's a new set of values called Keys. These values are trained over time as well. Then once the similarity is calculated across all the tokens compared to the token being looked at using the dot-product and softmax, then a new table of Values is used. I'm not sure why they needed the Values step but it adds another layer for the neural network to train and add knowledge as it learns.
+Initially, the model has no idea what word is more important to a given word so it starts with some random weights to figure out a starting point, and they called that the Query. Then the starting point has to be compared to something so there's a new set of values called Keys. These values are trained over time as well. Then once the similarity is calculated across all the tokens compared to the token being looked at using the dot-product and softmax, a new table of Values is used. I'm not sure why they needed the Values step but it adds another layer for the neural network to train and add knowledge as it learns.
 
 ## Insight about similarity
 
