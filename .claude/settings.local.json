@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:qwik.dev)",
+      "WebFetch(domain:github.com)"
+    ]
+  }
+}
