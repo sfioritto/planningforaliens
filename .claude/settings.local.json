@@ -17,7 +17,10 @@
       "Bash(ls:*)",
       "Bash(grep:*)",
       "Bash(npx sharp:*)",
-      "Bash(npm run optimize-images:*)"
+      "Bash(npm run optimize-images:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ]
   }
 }
