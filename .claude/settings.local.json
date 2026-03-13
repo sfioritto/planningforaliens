@@ -6,7 +6,18 @@
       "WebFetch(domain:developers.cloudflare.com)",
       "WebFetch(domain:www.planningforaliens.com)",
       "WebSearch",
-      "Bash(npx wrangler:*)"
+      "Bash(npx wrangler:*)",
+      "Bash(curl:*)",
+      "Bash(node --version:*)",
+      "Bash(npm run build:*)",
+      "WebFetch(domain:community.cloudflare.com)",
+      "WebFetch(domain:www.npmjs.com)",
+      "WebFetch(domain:www.learn-qwik.com)",
+      "WebFetch(domain:www.builder.io)",
+      "Bash(ls:*)",
+      "Bash(grep:*)",
+      "Bash(npx sharp:*)",
+      "Bash(npm run optimize-images:*)"
     ]
   }
 }
