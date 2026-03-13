@@ -27,7 +27,8 @@
     "preview": "qwik build preview && vite preview --open",
     "serve": "wrangler pages dev ./dist --compatibility-flags=nodejs_als",
     "start": "vite --open --mode ssr",
-    "qwik": "qwik"
+    "qwik": "qwik",
+    "optimize-images": "node bin/optimize-images.mjs"
   },
   "devDependencies": {
     "@builder.io/qwik": "^1.19.0",

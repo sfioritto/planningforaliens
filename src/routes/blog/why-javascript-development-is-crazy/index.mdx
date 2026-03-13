@@ -4,9 +4,6 @@ blurb: "Grunt/Gulp npm, require.js, browserify, es6, compilers, transpilers, jas
 published: "3/24/2016"
 ---
 
-import BellCurveImg from "./bell_curve.png?jsx"
-import BellCurve2Img from "./bell_curve_2.png?jsx"
-
 Web development is fun! Javascript is ... daunting.
 
 Everything else in web development clicks for you, but when you dig into
@@ -76,7 +73,7 @@ babelify and react-dom, weighing in at some unknown tens of thousands
 of lines of code.
 
 ### So basically this ...
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Marc was almost ready to implement his &quot;hello world&quot; React app <a href="https://t.co/ptdg4yteF1">pic.twitter.com/ptdg4yteF1</a></p>&mdash;  Thomas  Fuchs  (@thomasfuchs) <a href="https://twitter.com/thomasfuchs/status/708675139253174273?ref_src=twsrc%5Etfw">March 12, 2016</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Marc was almost ready to implement his &quot;hello world&quot; React app <a href="https://t.co/ptdg4yteF1">pic.twitter.com/ptdg4yteF1</a></p>&mdash;  Thomas  Fuchs  (@thomasfuchs) <a href="https://twitter.com/thomasfuchs/status/708675139253174273?ref_src=twsrc%5Etfw">March 12, 2016</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Ok, now let's do a hello world app with plain Javascript.
 
@@ -112,7 +109,9 @@ crazy.
 
 ### Now for that picture I promised.
 
-<BellCurveImg />
+<img decoding="async" loading="lazy"
+  srcset="/images/why-javascript-development-is-crazy/bell_curve-200w.webp 200w, /images/why-javascript-development-is-crazy/bell_curve-400w.webp 400w, /images/why-javascript-development-is-crazy/bell_curve-600w.webp 600w, /images/why-javascript-development-is-crazy/bell_curve-800w.webp 800w, /images/why-javascript-development-is-crazy/bell_curve-1200w.webp 1200w"
+  width="1200" height="744" />
 
 The vast majority of Javascript web applications you will work on will
 fall somewhere in the middle of that bell curve. And in the middle, if
@@ -125,7 +124,9 @@ HAVE.
 
 ### Here's that picture again:
 
-<BellCurve2Img />
+<img decoding="async" loading="lazy"
+  srcset="/images/why-javascript-development-is-crazy/bell_curve_2-200w.webp 200w, /images/why-javascript-development-is-crazy/bell_curve_2-400w.webp 400w, /images/why-javascript-development-is-crazy/bell_curve_2-600w.webp 600w, /images/why-javascript-development-is-crazy/bell_curve_2-800w.webp 800w, /images/why-javascript-development-is-crazy/bell_curve_2-1200w.webp 1200w"
+  width="1200" height="744" />
 
 The state of Javascript development is overwhelming and confusing
 because everyone is overengineering their apps by default without even
@@ -153,4 +154,3 @@ start to understand how, when and why to use a framework or
 npm/require/webpack or es6 or when to write tests or when you should
 bother to make your tests run locally vs. in the browser, and all of
 these other questions and problems that will come up.
-

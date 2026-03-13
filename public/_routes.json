@@ -5,6 +5,7 @@
   ],
   "exclude": [
     "/build/*",
-    "/assets/*"
+    "/assets/*",
+    "/images/*"
   ]
 }
